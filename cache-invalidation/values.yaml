@@ -1,0 +1,4 @@
+master:
+  password: "dfhbvhg3uh"
+persistence:
+  enabled: true

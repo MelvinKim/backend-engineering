@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: backend
+  labels:
+    app: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: melvinkimathi/cache-invalidation
+        imagePullPolicy: Always
+        imagePullSecrets:
+          - name: pullsecret
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        envFrom:
+        - secretRef:
+            name: backend-env-secret
+        - configMapRef:
+            name: backend-env-configmap
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+      restartPolicy: Always
+---
