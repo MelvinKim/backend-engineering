@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: backend-deployment
   namespace: backend
   labels:
     app: backend
@@ -9,18 +9,18 @@ spec:
   selector:
     matchLabels:
       app: backend
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
         app: backend
     spec:
+      imagePullSecrets:
+        - name:  pullsecret
       containers:
-      - name: backend
+      - name: backend-server
         image: melvinkimathi/cache-invalidation
         imagePullPolicy: Always
-        imagePullSecrets:
-          - name: pullsecret
         resources:
           requests:
             cpu: 50m
@@ -38,4 +38,3 @@ spec:
           name: http
           protocol: TCP
       restartPolicy: Always
----

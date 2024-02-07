@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-env-configmap
+  namespace: backend
+data:
+  CACHE_TYPE: "redis"
+  CACHE_REDIS_HOST: "localhost"
+  CACHE_REDIS_PORT: "6379"
+  CACHE_REDIS_DB: "0"
