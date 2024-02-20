@@ -1,4 +1,4 @@
-from init import db
+from src import db
 
 class Client(db.Model):
 

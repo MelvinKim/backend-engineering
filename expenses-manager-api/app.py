@@ -1,4 +1,4 @@
-from init import config, app
+from src import config, app
 
 if __name__ == "__main__":
     app.run(
