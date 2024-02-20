@@ -1,11 +1,11 @@
-from init import db
+from src import db
 
 class Account(db.Model):
-    
+
     __tablename__ = 'accounts'
     
     id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'))
+    client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
     client = db.relationship('Client',
         primaryjoin=('Account.client_id == Client.id'),
         remote_side="Client.id")

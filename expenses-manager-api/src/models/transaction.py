@@ -1,11 +1,11 @@
-from init import db
+from src import db
 
 class Transaction(db.Model):
     
     __tablename__ = 'transactions'
-    
+
     id = db.Column(db.Integer, primary_key=True)
-    account_id = db.Column(db.Integer, db.ForeignKey('account.id'))
+    account_id = db.Column(db.Integer, db.ForeignKey('accounts.id'))
     account = db.relationship('Account',
         primaryjoin=('Transaction.account_id == Transaction.id'),
         remote_side="Account.id")
