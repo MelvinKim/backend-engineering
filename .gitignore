@@ -2,3 +2,5 @@ venv
 notes.txt
 *__pycache__/
 *-secret.yaml
+.env
+env.sh
