@@ -4,7 +4,6 @@ from src.config.config import Config
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from src.routes import api
 
 # load env variables
 load_dotenv()
@@ -33,4 +32,5 @@ from src.models.client import Client
 from src.models.transaction import Transaction
 
 # import api blueprint to register it with app
+from src.routes import api
 app.register_blueprint(api, url_prefix = "/api")
