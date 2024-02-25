@@ -12,10 +12,13 @@ class Account(db.Model):
     deactivated_at = db.Column(db.DateTime(timezone=True))
     is_active = db.Column(db.Boolean, default=True, nullable=False)
 
+    def serialize_transactions(self):
+        return [transaction.serialize() for transaction in self.transactions]
+
     def serialize(self):
         return {
             "id": self.id,
-            "transactions": self.transactions,
+            "transactions": [transaction.serialize() for transaction in self.transactions],
             "client_id": self.client_id,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
