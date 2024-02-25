@@ -52,7 +52,7 @@ from src.models.transaction import Transaction
 from src.routes import api
 app.register_blueprint(api, url_prefix = "/api")
 
-from src.utils.common import cleanup
+from src.utils import cleanup
 @app.after_request
 def after_request(response):
     cleanup(db.session)
