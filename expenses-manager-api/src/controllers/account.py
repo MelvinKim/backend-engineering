@@ -4,9 +4,9 @@ from src import db
 
 accounts = Blueprint("accounts", __name__)
 
-""" Get account """
 @accounts.route("/", methods=["GET"])
 def get_accounts():
+    """ Get accounts """
     try:
         current_accounts = Account.query.all()
         return make_response(jsonify([account.serialize() for account in current_accounts]))
