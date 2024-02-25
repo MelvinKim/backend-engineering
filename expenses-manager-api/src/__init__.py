@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy.pool import NullPool
+import redis
 
 # load env variables
 load_dotenv()
@@ -23,6 +24,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("SQLALCHEMY_DATABASE_URI"
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     'poolclass': NullPool,
 }
+
+# redis configuration
+cache = redis.Redis(
+    host=os.environ.get("CACHE_REDIS_HOST", "localhost"),
+    db=os.environ.get("CACHE_REDIS_DB", 1),
+    port=os.environ.get("CACHE_REDIS_PORT", 6379),
+    password=os.environ.get("CACHE_REDIS_PASSWORD", None),
+    charset="utf-8",
+    decode_responses=True
+)
 
 # sqlachemy instance
 db = SQLAlchemy(app)

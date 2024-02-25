@@ -1,6 +1,6 @@
 from flask import request, Response, jsonify, json, Blueprint, make_response, jsonify
 from src.models.account import Account
-from src import db
+from src import db, cache
 
 accounts = Blueprint("accounts", __name__)
 
@@ -51,6 +51,8 @@ def deactivate(account_id):
     account.is_active = False
     db.session.commit()
 
+    cache.set(account_id, json.dumps(account.serialize()))
+
     return ('Account with Id {} deactivated successfully!').format(account_id)
 
 @accounts.route("/activate/<account_id>", methods=["PUT"])
@@ -61,5 +63,7 @@ def activate(account_id):
     account = Account.query.get(account_id)
     account.is_active = True
     db.session.commit()
+
+    cache.set(account_id, json.dumps(account.serialize()))
 
     return ('Account with Id {} activated successfully!').format(account_id)
