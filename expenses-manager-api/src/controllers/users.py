@@ -11,7 +11,7 @@ def handle_login():
         status=200,
         mimetype='application/json'
     )
-    
+
 # signup route
 @users.route('/signup', methods = ["GET", "POST"])
 def handle_signup():

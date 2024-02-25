@@ -3,7 +3,7 @@ from src import db
 class Account(db.Model):
 
     __tablename__ = 'accounts'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     transactions = db.relationship('Transaction', backref='aacount', lazy=True)
     client_id = db.Column(db.Integer, db.ForeignKey('clients.id'), nullable=False)
@@ -11,7 +11,7 @@ class Account(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     deactivated_at = db.Column(db.DateTime(timezone=True))
     is_active = db.Column(db.Boolean, default=True, nullable=False)
-    
+
     def serialize(self):
         return {
             "id": self.id,

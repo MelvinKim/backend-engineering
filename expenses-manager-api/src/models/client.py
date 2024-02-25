@@ -14,10 +14,10 @@ class Client(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     deactivated_at = db.Column(db.DateTime(timezone=True))
     is_active = db.Column(db.Boolean, default=False, nullable=False)
-    
+
     def serialize_accounts(self):
         return [client.serialize() for client in self.accounts]
-    
+
     def serialize(self):
         return {
             "id": self.id,

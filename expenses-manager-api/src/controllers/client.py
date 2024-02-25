@@ -16,7 +16,7 @@ def get_clients():
             jsonify({'error': message}),
             500
         )
-        
+
 # create client
 @clients.route("/", methods=["POST"])
 def create_client():
@@ -40,13 +40,13 @@ def create_client():
             jsonify({'error': message}),
             500
         )
-        
+
 # get client by id
 @clients.route("/<client_id>", methods=["GET"])
 def get_client_by_id(client_id):
     response = Client.query.get(client_id).serialize()
     return jsonify(response)
-        
+
 # update client details
 @clients.route("/<client_id>", methods=["PUT"])
 def update_client(client_id):
@@ -55,7 +55,7 @@ def update_client(client_id):
     client.lastname = request.json["lastname"]
     client.email = request.json["email"]
     db.session.commit()
-    
+
     response = Client.query.get(client_id).serialize()
     return jsonify(response)
 
@@ -65,5 +65,5 @@ def delete_client(client_id):
     client = Client.query.get(client_id)
     client.is_active = False
     db.session.commit()
-    
+
     return ('Client with Id "{}" deleted successfully!').format(client_id)

@@ -8,7 +8,7 @@ from flask_migrate import Migrate
 # load env variables
 load_dotenv()
 
-# declare flask app 
+# declare flask app
 app = Flask(__name__)
 
 # call the dev config
