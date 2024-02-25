@@ -20,12 +20,6 @@ def get_clients():
 # create client
 @clients.route("/", methods=["POST"])
 def create_client():
-    if not request.json:
-        message = "Kindly include all the required fields"
-        return make_response(
-            jsonify({"error": message}),
-            400
-        )
     try:
         new_client = Client(
             firstname = request.json['firstname'],

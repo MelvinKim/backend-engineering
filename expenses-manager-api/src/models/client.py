@@ -15,6 +15,9 @@ class Client(db.Model):
     deactivated_at = db.Column(db.DateTime(timezone=True))
     is_active = db.Column(db.Boolean, default=False, nullable=False)
     
+    def serialize_accounts(self):
+        return [client.serialize() for client in self.accounts]
+    
     def serialize(self):
         return {
             "id": self.id,
@@ -22,7 +25,7 @@ class Client(db.Model):
             "lastname": self.lastname,
             "email": self.email,
             "age": self.age,
-            "accounts": self.accounts,
+            "accounts": [account.serialize() for account in self.accounts],
             "created_at": self.created_at,
             "deactivated_at": self.deactivated_at,
             "is_active": self.is_active
