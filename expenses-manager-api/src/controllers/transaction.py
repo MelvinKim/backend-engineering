@@ -6,7 +6,9 @@ transactions = Blueprint("transactions", __name__)
 
 @transactions.route("/", methods=["GET"])
 def get_transactions():
-    """ Get transactions """
+    """
+    Get transactions
+    """
     try:
         current_transactions = Transaction.query.all()
         return make_response(jsonify([transaction.serialize() for transaction in current_transactions]), 200)
@@ -16,7 +18,9 @@ def get_transactions():
 
 @transactions.route("/", methods=["POST"])
 def create_transaction():
-    """ Create transaction """
+    """
+    Create transaction
+    """
     new_transaction = Transaction(
         account_id = request.json["account_id"]
     )
@@ -27,7 +31,9 @@ def create_transaction():
 
 @transactions.route("/<account_id>", methods=["GET"])
 def get_account_transactions(account_id):
-    """ Get transactions belonging to a specific account """
+    """
+    Get transactions belonging to a specific account
+    """
     transactions = Transaction.query.filter_by(account_id = account_id)
     print("account transactons: ", transactions)
     return make_response(jsonify([transaction.serialize() for transaction in transactions]), 200)

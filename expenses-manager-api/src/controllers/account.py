@@ -6,7 +6,9 @@ accounts = Blueprint("accounts", __name__)
 
 @accounts.route("/", methods=["GET"])
 def get_accounts():
-    """ Get accounts """
+    """
+    Get accounts
+    """
     try:
         current_accounts = Account.query.all()
         return make_response(jsonify([account.serialize() for account in current_accounts]))
@@ -19,7 +21,9 @@ def get_accounts():
 
 @accounts.route("/", methods=["POST"])
 def create_account():
-    """ Create Account """
+    """
+    Create Account
+    """
     try:
         new_account = Account(
             client_id = request.json["client_id"]
@@ -40,7 +44,9 @@ def create_account():
 
 @accounts.route("/deactivate/<account_id>", methods=["PUT"])
 def deactivate(account_id):
-    """ Deactivate Account """
+    """
+    Deactivate Account
+    """
     account = Account.query.get(account_id)
     account.is_active = False
     db.session.commit()
@@ -49,7 +55,9 @@ def deactivate(account_id):
 
 @accounts.route("/activate/<account_id>", methods=["PUT"])
 def activate(account_id):
-    """ Activate Account"""
+    """
+    Activate Account
+    """
     account = Account.query.get(account_id)
     account.is_active = True
     db.session.commit()
