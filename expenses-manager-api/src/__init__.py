@@ -57,3 +57,6 @@ from src.utils.common import cleanup
 def after_request(response):
     cleanup(db.session)
     return response
+
+from src.boot.on_boot import run_all
+run_all(app)
