@@ -29,8 +29,8 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
 cache = redis.Redis(
     host=os.environ.get("CACHE_REDIS_HOST", "localhost"),
     db=os.environ.get("CACHE_REDIS_DB", 1),
-    port=os.environ.get("CACHE_REDIS_PORT", 6379),
-    password=os.environ.get("CACHE_REDIS_PASSWORD", None),
+    port=os.environ.get("CACHE_REDIS_PORT", 6380),
+    password=os.environ.get("CACHE_REDIS_PASSWORD", "po6yz4jV0S"),
     charset="utf-8",
     decode_responses=True
 )
