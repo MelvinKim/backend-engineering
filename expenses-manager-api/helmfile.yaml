@@ -1,0 +1,8 @@
+---
+releases:
+  - name: rabbitmq
+    namespace: rabbitmq
+    chart: ./kubernetes/charts/rabbitmq
+  - name: redis
+    namespace: redis
+    chart: ./kubernetes/charts/redis
