@@ -2,7 +2,7 @@ from flask import request, Response, jsonify, json, Blueprint, make_response, js
 from src.models.client import Client
 from src import db, cache
 from src.utils.event_publisher import EventPublisher
-from src.constants.pub_sub_constants import EXPENSES_RABBIT_MQ_EXCHANGE_NAME, EXPENSES_TASK_NAME
+from src.constants.pub_sub_constants import EXPENSES_RABBIT_MQ_EXCHANGE_NAME, ACCOUNTS_RABBIT_MQ_EXCHANGE_NAME, ACCOUNTS_TASK_NAME
 
 
 clients = Blueprint("clients", __name__)
@@ -35,9 +35,12 @@ def create_client():
 
         cache.set(new_client.id, json.dumps(new_client.serialize()))
 
+        # For each new client, create a new account
+        print("failing here: before account")
         EventPublisher().publish_message(message=json.dumps(new_client.serialize()),
                                          exchange=EXPENSES_RABBIT_MQ_EXCHANGE_NAME,
-                                         task=EXPENSES_TASK_NAME)
+                                         task=ACCOUNTS_TASK_NAME)
+        print("failing here: after account")
 
         message = "new client created successfully"
         return make_response(

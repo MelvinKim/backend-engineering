@@ -45,10 +45,13 @@ class EventPublisher:
             for exchange in EXCHANGE_QUEUE_BINDING:
                 self.channel.exchange_declare(exchange=exchange.get('exchange'),
                                             exchange_type=exchange.get('type'),
-                                            durable=True)
+                                            durable=True) # durable exchange will survive a rabbitmq restart
                 for queue in exchange.get('queues', []):
                     routing_key = DIRECT_QUEUE_ROUTING[exchange.get('exchange')] if exchange.get('type') == DIRECT else ''
+
+                    # declare queue
                     self.channel.queue_declare(queue=queue, durable=True)
+                    # bind queue to an exchange
                     self.channel.queue_bind(exchange=exchange.get('exchange'), queue=queue,
                                             routing_key=routing_key)
         except Exception as e:
@@ -56,7 +59,7 @@ class EventPublisher:
 
     def publish_message(self, message, exchange, task, id=None):
         try:
-             self.channel.basic_publish(**EventPublisher.format_publish_message(message, exchange=exchange, task=task))
-             app.logger.info(f"Sent message {message} to {exchange}")
+            self.channel.basic_publish(**EventPublisher.format_publish_message(message, exchange=exchange, task=task))
+            app.logger.info(f"Sent message {message} to {exchange}")
         except (ConnectionClosed, ChannelClosed) as e:
             app.logger(f"Error {e} on tring to send message {message} to {exchange}")

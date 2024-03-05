@@ -1,4 +1,4 @@
-# Finance API
+# Babe API
 <img src="https://digitalasset.intuit.com/IMAGE/A1YQpa4uH/Mint.com-ZoneB-X-Small-2.png" alt="MarineGEO circle logo" style="height: 600px; width:600px;"/>
 
 # Purpose
