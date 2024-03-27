@@ -1,5 +1,7 @@
 from flask import request, Response, jsonify, json, Blueprint, make_response, jsonify
 from src.models.account import Account
+from src.utils.event_publisher import EventPublisher
+from src.constants.pub_sub_constants import ACCOUNTS_RABBIT_MQ_QUEUE_NAME
 from src import db, cache
 
 accounts = Blueprint("accounts", __name__)
@@ -24,6 +26,11 @@ def create_account():
     """
     Create Account
     """
+    # Async account creation
+    print("failing here: clients")
+    client_id = EventPublisher().channel.basic_consume(queue=ACCOUNTS_RABBIT_MQ_QUEUE_NAME, on_message_callback=None)
+    print("client id from queue: ", client_id)
+    
     try:
         new_account = Account(
             client_id = request.json["client_id"]
